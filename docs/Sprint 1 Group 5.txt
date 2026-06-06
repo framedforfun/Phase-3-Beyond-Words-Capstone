@@ -1,0 +1,72 @@
+﻿Sprint 1: Project Foundation and EDA
+Team Identification
+Group Name: BeyondWords
+Topic: ASL Alphabet Recognition
+Database: ASL Alphabet (kaggle)
+
+
+Collaborators
+Owen Granberg - Leader (Sprint 1: Background Research)
+Nick Peril (Sprint 1: EDA)
+Deborah Diaz
+Chanel Blue
+Overview
+Sprint 1 is entirely about getting organized and understanding your data before writing a single line of model code. By the end of this sprint your team should have a functioning GitHub setup, a clear plan for how you will collaborate, and a completed exploratory data analysis notebook that gives everyone on the team a deep understanding ofhat you are working with.
+Your Dataset
+Your dataset will be provided as a link that takes you directly to Kaggle. From there it is up to your team to decide how you want to work with it locally. Each member can download the dataset to their own device and run everything locally, or the team can choose to work in Google Colab if there are any hardware or storage limitations on personal machines. Either approach is fine for this sprint since this step is temporary while your team structures its plan and figures out what infrastructure works best for everyone.
+Day by Day Goals (Approach)
+
+
+* 6/4 - Team Member Role Assignments / GitHub Repo Creation
+* 6/9 - Background Research + EDA Done
+* 6/10 - Written Summary Done + GitHub Clean-Up / Submission
+
+
+Sprint 1 Deliverables
+The following must be submitted before the Standup Presentation:
+GitHub Repository
+The team lead creates the repository and adds every member as a collaborator. Each member should have their own branch with assigned work reflected there. The Kanban board should show tasks broken out per deliverable with each task assigned to a specific person. The README should be in draft form explaining the project and the dataset briefly. This README will continue to grow as the project progresses.
+EDA Notebook
+The completed exploratory data analysis notebook must be merged into the master branch. It should cover class distributions, sample visualizations, data quality observations, and a written summary of findings and anticipated challenges.
+A Note on Tooling
+There is no single right way to set up your local environment for this sprint. If your machine handles it, running everything locally is fine. If you run into memory or storage issues, Google Colab is a completely valid alternative and many professional teams use cloud notebooks as their primary environment. What matters is that every member of your team can run the notebook and contribute. However, it is still expected of you to download it as a jupyter notebook and push it to github.
+
+
+
+
+
+
+
+
+
+
+Background Research Recommendation: Image Teams 
+Before writing any code, each member of the team should spend time researching the following topics. Understanding these concepts will directly inform how you load your data, what you look for during EDA, and how you will preprocess in Sprint 2.
+What to Research
+* How image datasets are typically structured in folders and how to load them using Python libraries like PIL, OpenCV, or torchvision
+* What image normalization means and why pixel values are scaled before feeding images into a model
+* What data augmentation is and why it helps a model generalize better
+* What transfer learning is at a high level, specifically what a pretrained CNN like MobileNet or ResNet already knows and why that matters for your project
+* What class imbalance means in an image dataset and why it can hurt model performance
+What Your EDA Notebook Should Show
+* Class distribution bar chart showing how many images exist per label. This immediately tells you whether the dataset is balanced or whether some classes have far more examples than others.
+* Sample image grid displaying several example images from each class so the team can visually understand what the model will be learning from. Look for variation in lighting, angle, background, and quality.
+* Image dimension distribution showing the range of heights and widths across the dataset. Most real world datasets have inconsistent sizes and you need to know this before preprocessing.
+* Pixel intensity histogram showing the distribution of pixel brightness values across the dataset or across a sample. This tells you whether normalization is necessary and how extreme the range is.
+* Corrupted or missing file check documenting any images that fail to load, are unusually small, or appear blank. Even a small number of bad files can cause training errors later.
+* Written summary at the end of the notebook describing what the team observed, what challenges are anticipated, and what preprocessing steps will likely be needed going into Sprint 2.
+
+
+________________
+
+
+Submission
+The deadline to submit this form is June 4th. Your submission should include two things: the Approach Form, where your team documents how you plan to tackle the project.
+Agreement
+Each member has read and agrees to tackle each goal and finalize each section by the Sprint 1 presentation.
+
+
+* Owen Granberg
+* Nick Peril
+* Deborah Diaz (Absent)
+* Chanel Blue (Absent)
