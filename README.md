@@ -1,11 +1,5 @@
 # Phase-3-Group-Capstone
 
-# Team: BeyondWords
-
-## Project Overview
-
-# Phase-3-Group-Capstone
-
 ## Team: BeyondWords
 
 ### Project Overview
