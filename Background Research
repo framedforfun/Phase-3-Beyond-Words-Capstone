@@ -3,18 +3,18 @@ Sprint 1 Background Research
 Team: BeyondWords
 
 
-### Chanel Blue: 
+**Chanel Blue:** 
 
 
 
 
 
-### Owen Granberg:
+**Owen Granberg:**
 
 
-### Initial Dataset Observations:
+**Initial Dataset Observations:**
 
-### Strengths:
+**Strengths:**
 
 -Dataset is Balanced (~3,000 images per class)
 -Consistent image sizes (200×200)
@@ -22,21 +22,19 @@ Team: BeyondWords
 -Consistent camera angle
 -Large overall dataset (~87,000 images)
 
-### Potential Weaknesses:
+**Potential Weaknesses:**
 
 -Single signer
 -Minimal background diversity
 -Minimal lighting diversity
 -Limited real-world variability
 
-### Classes:
+**Classes:**
 The dataset contains 29 classes. Twenty-six classes correspond to the letters A–Z, while three additional classes represent SPACE, DELETE, and NOTHING.
 
-### Dataset Size:
-The training dataset contains approximately 87,000 images at a resolution of 200×200 pixels. 
-
 ### Dataset Structure:
-Each class, including the SPACE, DELETE, and NOTHING folders, each have 3,000 or so images.
+The training dataset contains approximately 87,000 images at a resolution of 200×200 pixels. 
+Each of the 29 classes, including the SPACE, DELETE, and NOTHING folders, contain 3,000 or so images of their respective hand signs.
 
 ### Image Standardization:
 The dataset appears highly standardized. Images share consistent dimensions, camera angle, and background conditions. Most images appear to have been captured under controlled circumstances by the same individual.
