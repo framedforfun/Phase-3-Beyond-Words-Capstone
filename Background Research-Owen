@@ -1,0 +1,78 @@
+Sprint 1 Background Research
+
+
+Team: BeyondWords
+
+
+### Initial Dataset Observations:
+
+### Strengths:
+
+-Dataset is Balanced (~3,000 images per class)
+-Consistent image sizes (200×200)
+-Consistent backgrounds
+-Consistent camera angle
+-Large overall dataset (~87,000 images)
+
+### Potential Weaknesses:
+
+-Single signer
+-Minimal background diversity
+-Minimal lighting diversity
+-Limited real-world variability
+
+### Classes:
+The dataset contains 29 classes. Twenty-six classes correspond to the letters A–Z, while three additional classes represent SPACE, DELETE, and NOTHING.
+
+### Dataset Size:
+The training dataset contains approximately 87,000 images at a resolution of 200×200 pixels. 
+
+### Dataset Structure:
+Each class, including the SPACE, DELETE, and NOTHING folders, each have 3,000 or so images.
+
+### Image Standardization:
+The dataset appears highly standardized. Images share consistent dimensions, camera angle, and background conditions. Most images appear to have been captured under controlled circumstances by the same individual.
+Minor variations were observed, including slight lighting differences, occasional blur in some images, and a small number of off-center hand positions. These variations may still justify preprocessing steps such as normalization and augmentation.
+Background and Subject Consistency:
+Backgrounds remain consistent across images and show little environmental variation. Subject diversity also appears limited, with images seemingly captured from a single individual. While this consistency may simplify model training, it may reduce the model's ability to generalize to new users and real-world conditions.
+
+
+### Key Takeaways for Sprint 2:
+
+
+-The dataset appears optimized for classification performance under controlled conditions, but may not fully represent the variability encountered in real-world ASL recognition systems. The mostly similar camera angle, lighting, background, and image sizes for each picture should make the model focus on the differences between the different hand signs shown, however the model might have trouble identifying signs within images taken under varying conditions.
+
+-One positive asset to note is that the dataset design itself minimizes the impact of class imbalance, allowing the model’s evaluation to focus more directly on gesture recognition performance rather than the potential class distribution issues. This is the result of every class having around 3,000 or so photos each, all with the same aspect ratio.
+
+-The existence of the classes “SPACE”, “DELETE” and “NOTHING” alongside the standard alphabet letters points towards a potentially intended use case as an ASL-to-text generator, written out letter by letter.  
+
+-The “NOTHING” protects against false positives by design; the class may improve real-world usability by allowing the model to distinguish between sign and the absence of a sign, reducing poor predictions.
+
+-The limited test set of just 29 images suggests that additional validation and testing strategies may be required to obtain reliable performance estimates during model development.
+
+-Because environmental variability between images is very limited, classification errors may be driven primarily by similarities between hand shapes rather than background or lighting conditions.
+
+
+
+### Sprint 2 Recommendations:
+
+
+### Likely Easy:
+
+-Image loading
+-Resizing
+-Class balance
+
+
+### Potentially Difficult:
+
+-Generalization to new users
+-Distinguishing similar signs
+-Real-world deployment
+
+
+### Important to Consider:
+-Augmentation
+-Transfer learning
+-Robust evaluation methods
+
