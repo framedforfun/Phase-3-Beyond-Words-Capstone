@@ -72,13 +72,7 @@ https://www.kaggle.com/datasets/grassknoted/asl-alphabet
 * Initial dataset research completed
 * Background research
 * Exploratory data analysis notebook
-
-### In Progress
-
 * Sample image analysis
-
-### Upcoming
-
 * Class distribution analysis
 * Pixel intensity analysis
 * Final EDA summary
@@ -107,7 +101,3 @@ https://www.kaggle.com/datasets/grassknoted/asl-alphabet
 * Project presentation
 * Documentation completion
 * Deployment recommendations
-
-
-
-## Future Wor
