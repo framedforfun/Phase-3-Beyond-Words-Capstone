@@ -6,6 +6,59 @@ Team: BeyondWords
 **Chanel Blue:** 
 
 
+Normalization is an important preprocessing step that helps machine learning and deep learning models learn more effectively.
+ How does normalization work?
+Normalization is the process of scaling pixel values so that all images are on a similar numerical range. Since image pixels are typically stored as integers from 0 to 255, normalization converts them to a smaller range, usually 0 to 1 or -1 to 1.
+Why Normalize an ASL Dataset?
+For ASL, normalization provides several benefits:
+1. Faster Model Training
+Neural networks converge more quickly when input features are on a similar scale.
+2. Improved Accuracy
+Normalized images help prevent certain pixels from dominating the learning process.
+3. Better Gradient Descent Performance
+Large pixel values can cause unstable gradients during training.
+4. Consistency Across Images
+ASL datasets often contain images captured under different lighting conditions. Normalization reduces the impact of brightness variations.
+
+Common Normalization Methods
+Method 1: Min-Max Normalization
+Scale pixel values to the range [0,1].
+
+Method 2: Standardization (Z-Score)
+Subtract the mean and divide by the standard deviation.
+
+
+Why Use Augmentation for ASL?
+Benefits include:
+•	Reduces overfitting 
+•	Improves model robustness 
+•	Simulates real-world variations 
+•	Increases effective dataset size 
+•	Helps the model recognize signs under different conditions
+Before vs. After Augmentation
+Original image:
+•	Centered hand 
+•	Consistent lighting 
+•	Fixed angle 
+Augmented images:git fetch origin
+git pull origin main
+git log --oneline -5
+•	Slightly rotated 
+•	Shifted left/right 
+•	Zoomed in/out 
+•	Brighter or darker 
+The label remains the same, but the model learns to recognize the sign under different conditions.
+For an ASL hand-sign recognition project, augmentation is typically applied only to the training set, while the validation and test sets remain unchanged so that model performance is evaluated on real, unmodified images.
+
+Why transfer learning works well for ASL
+1.	Lower data requirement
+A pretrained model already knows how to detect edges, shapes, textures, and hand-like patterns, so you need fewer labeled ASL images.
+2.	Faster training
+You train only a small classification head (and optionally fine-tune later layers), reducing training time significantly.
+3.	Better accuracy
+Transfer learning often outperforms training from scratch on medium-sized ASL datasets.
+4.	Reduced overfitting
+The pretrained features provide a strong starting point, which helps the model generalize better.
 
 
 
