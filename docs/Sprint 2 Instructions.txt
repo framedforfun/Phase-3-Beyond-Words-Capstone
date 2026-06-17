@@ -1,0 +1,78 @@
+﻿Sprint 2: Storage, Cleaning, and Preprocessing
+Overview
+Sprint 2 is where your project starts to take real shape. In Sprint 1 you got organized, explored your data, and developed an honest understanding of what you are working with. Sprint 2 takes everything you observed in your EDA and turns it into action. By the end of this sprint your data will be clean, consistently formatted, stored in a database, and ready to be fed directly into a model. That is the entire goal. Sprint 3 is about building and training, and it only goes smoothly if Sprint 2 is done right. The teams that cut corners here will spend Sprint 3 debugging data problems instead of learning how to train a model.
+Day by Day Goals (Approach)
+
+
+* 6/11 - Planning 
+* 6/16 - 
+* 6/17 -
+* 6/18 -
+* 6/23 -
+* 6/24 - 
+Background Research Recommendations
+Before writing any code this sprint, each member of the team should research the following topics. Coming into the work with this foundation will make the difference between a pipeline that works and one that constantly breaks.
+Image Teams: What to Research
+* How to use torchvision transforms for resizing, normalization, and augmentation including RandomHorizontalFlip, RandomRotation, ColorJitter, and Normalize
+* What a PyTorch Dataset class is, how to write a custom one, and how it connects to a DataLoader
+* What batch size and num workers mean in a DataLoader and how they affect training speed
+* How to handle class imbalance using either WeightedRandomSampler in PyTorch or by oversampling and undersampling manually
+* How to verify a DataLoader is working correctly by inspecting a sample batch before training
+Audio Teams: What to Research
+* How to use Librosa to load audio files, check sample rates, and extract MFCCs and spectrograms
+* What padding and truncating means for audio and how to standardize clip length across a dataset
+* How to normalize MFCC arrays and why it matters before feeding them into a model
+* How to write a custom PyTorch Dataset class for audio data that loads and transforms clips on the fly
+* How to verify a DataLoader is working correctly by inspecting a sample batch of MFCC or spectrogram arrays
+Data Cleaning by Track
+Cleaning happens before preprocessing. You cannot transform data that is broken, inconsistent, or misleading. This step is about making sure everything that enters your preprocessing pipeline is trustworthy.
+Image Teams: What Cleaning Looks Like
+* Load every file and flag any that fail to open, are blank, or have unusually small dimensions
+* Remove or quarantine corrupted files and document what was removed and why
+* Check class distribution from your EDA and decide how to handle imbalance. Options include removing excess samples from overrepresented classes, duplicating samples from underrepresented classes, or applying heavier augmentation to smaller classes during training
+* Confirm all remaining files are in a consistent format such as JPEG or PNG and convert any outliers
+* Document every cleaning decision in the notebook with a clear explanation so a teammate can reproduce it
+Audio Teams: What Cleaning Looks Like
+* Load every file using Librosa and flag any that fail to load, are silent, or have anomalous durations
+* Check that all files share the same sample rate and resample any that do not match the target rate
+* Remove or quarantine corrupted clips and document what was removed and why
+* Check class distribution from your EDA and decide how to handle imbalance using the same logic as above
+* Decide on a standard clip length based on the distribution you found in Sprint 1 and document that decision
+* Document every cleaning decision in the notebook with a clear explanation so a teammate can reproduce it
+Preprocessing Pipeline by Track
+Once your data is clean the preprocessing pipeline transforms it into the format your model will actually consume. By the end of this step you should be able to call your DataLoader and get back a batch of tensors ready for training with no additional steps required.
+Image Teams: What the Pipeline Should Do
+* Resize every image to a consistent target dimension, commonly 224 by 224 for transfer learning with MobileNet or ResNet
+* Apply normalization using the ImageNet mean and standard deviation values since you will be using a pretrained backbone
+* Apply data augmentation to the training split only, not validation or test. Common augmentations include random horizontal flip, random rotation, and color jitter
+* Wrap everything in a custom PyTorch Dataset class that loads an image given a file path and applies the correct transform based on the split
+* Wrap the Dataset in a DataLoader with an appropriate batch size and confirm a sample batch loads correctly with the right shape and value range
+Audio Teams: What the Pipeline Should Do
+* Load each audio clip at a consistent sample rate and trim or pad it to the standard length you decided during cleaning
+* Extract MFCCs or mel spectrograms using Librosa and convert the output to a tensor
+* Normalize the MFCC or spectrogram values across the dataset
+* Apply augmentation to the training split only. Common audio augmentations include time shifting, adding background noise, and frequency masking
+* Wrap everything in a custom PyTorch Dataset class that loads and transforms a clip given a file path
+* Wrap the Dataset in a DataLoader and confirm a sample batch loads correctly with the right shape and value range
+What the Final Notebook Should Look Like
+By the end of Sprint 2 your team should have a single Jupyter notebook that tells the complete story from raw data to model-ready batches. It should be clean, readable, and reproducible meaning any teammate should be able to run it top to bottom and get the same result.
+The notebook should flow in this order:
+* A brief introduction cell explaining what the notebook does and what sprint it belongs to
+* SQL connection and queries that pull the train, validation, and test splits from your database
+* Data cleaning section with code, outputs, and written commentary explaining every decision
+* Preprocessing pipeline section with the Dataset class, transforms, and DataLoader setup
+* A verification section that loads a sample batch and confirms the shape, data type, and value range look correct
+* A closing summary cell describing what was done, what decisions were made
+This notebook gets merged into the master branch as your Sprint 2 submission. It is not a scratch file. Write it like someone else needs to read and understand it, because they do.
+
+
+________________
+
+
+Sprint 2 Deliverables
+The following must be completed before the Standup 2 presentation:
+* SQL database with a populated metadata schema including file paths, labels, and split assignments
+* A completed end to end Jupyter notebook covering SQL integration, data cleaning, and the preprocessing pipeline merged into the master branch
+* Updated README reflecting Sprint 2 progress
+* Updated Kanban board showing completed Sprint 2 tasks
+* Submission form completed by the deadline provided by your instructor
