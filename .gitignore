@@ -1,2 +1,13 @@
+# Local datasets
 data/
+code/data/
+
+# Generated database files
+*.db
+
+# macOS metadata
 .DS_Store
+
+# Python/Jupyter cache files
+.ipynb_checkpoints/
+__pycache__/
