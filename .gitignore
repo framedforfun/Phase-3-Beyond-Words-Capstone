@@ -13,5 +13,5 @@ code/data/
 __pycache__/
 
 # Trained model files
-models/
 *.pth
+models/*.pth
