@@ -36,7 +36,7 @@ This project trains an image classification model on the [ASL Alphabet dataset](
 └── README.md
 ```
 
-> `data/`, `asl_metadata.db`, and `models/` are listed in `.gitignore` — download the dataset separately (see Setup below).
+> `data/` and `asl_metadata.db` are listed in `.gitignore` — download the dataset separately (see Setup below). The selected Sprint 4 checkpoint is tracked at `models/baseline_mobilenetv2.pth`.
 
 ---
 
@@ -176,6 +176,26 @@ sprint_3.ipynb                          # Training and evaluation
 
 To skip retraining and run only evaluation, download `baseline_mobilenetv2.pth` and place it in `models/`. The evaluation cells in `sprint_3.ipynb` will detect it automatically via `checkpoint_available`.
 
+**6. Run the Sprint 4 web demo**
+
+```bash
+python3 sprint4_app/server.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000
+```
+
+The local app serves the upload interface and backend inference endpoint from one process.
+
+```text
+POST /predict
+Form field: image=<jpg-or-png-file>
+Response: predicted_class, confidence, top_predictions
+```
+
 ---
 
 ## Notes for Retraining
@@ -189,4 +209,4 @@ The full training loop is gated behind `RUN_FULL_TRAINING = False` in `sprint_3.
 - Fine-tune the last MobileNetV2 inverted residual block (unfreeze partial feature extractor) to improve accuracy on confused pairs
 - Add targeted data augmentation (hand rotation, zoom, lighting variation) to reduce sensitivity to subtle pose differences
 - Investigate per-class augmentation for the weakest-performing signs (E, I, M, S)
-- Build an inference wrapper to accept user-submitted photos and return a predicted letter
+- Improve the Sprint 4 interface with camera capture and clearer examples of strong upload framing
