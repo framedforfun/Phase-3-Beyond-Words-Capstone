@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeyondWords ASL Classifier</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-label="ASL image classifier">
+        <div class="intro">
+          <p class="eyebrow">BeyondWords Sprint 4 Demo</p>
+          <h1>ASL Alphabet Classifier</h1>
+          <p class="summary">
+            Upload a tightly framed ASL hand-sign photo and the trained MobileNetV2 model will return the predicted class.
+          </p>
+        </div>
+
+        <div class="demo-grid">
+          <section class="upload-panel" aria-label="Upload image">
+            <label id="drop-zone" class="drop-zone" for="image-input">
+              <input id="image-input" type="file" accept="image/png,image/jpeg,image/jpg" />
+              <span class="drop-icon" aria-hidden="true">+</span>
+              <span class="drop-title">Choose or drop an image</span>
+              <span class="drop-hint">Best results: hand fills the frame, simple background, good lighting</span>
+            </label>
+
+            <div class="preview-frame">
+              <img id="preview" alt="Selected ASL upload preview" hidden />
+              <div id="empty-preview" class="empty-preview">No image selected</div>
+            </div>
+
+            <button id="predict-button" type="button" disabled>Predict Class</button>
+            <p id="status" class="status" role="status">Waiting for an image.</p>
+          </section>
+
+          <section class="result-panel" aria-label="Prediction result">
+            <div class="result-header">
+              <span class="result-label">Prediction</span>
+              <span id="file-name" class="file-name">No file</span>
+            </div>
+
+            <div class="primary-result">
+              <span id="predicted-class" class="predicted-class">--</span>
+              <span id="confidence" class="confidence">Confidence unavailable</span>
+            </div>
+
+            <div class="top-list">
+              <h2>Top Matches</h2>
+              <ol id="top-predictions" aria-label="Top prediction matches">
+                <li><span>Waiting</span><strong>--</strong></li>
+              </ol>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const input = document.querySelector("#image-input");
+      const dropZone = document.querySelector("#drop-zone");
+      const preview = document.querySelector("#preview");
+      const emptyPreview = document.querySelector("#empty-preview");
+      const predictButton = document.querySelector("#predict-button");
+      const statusText = document.querySelector("#status");
+      const predictedClass = document.querySelector("#predicted-class");
+      const confidence = document.querySelector("#confidence");
+      const fileName = document.querySelector("#file-name");
+      const topPredictions = document.querySelector("#top-predictions");
+
+      let selectedFile = null;
+
+      function setStatus(message, tone = "neutral") {
+        statusText.textContent = message;
+        statusText.dataset.tone = tone;
+      }
+
+      function showFile(file) {
+        selectedFile = file;
+        fileName.textContent = file.name;
+        predictButton.disabled = false;
+        predictedClass.textContent = "--";
+        confidence.textContent = "Ready to predict";
+        topPredictions.innerHTML = "<li><span>Waiting</span><strong>--</strong></li>";
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          preview.src = reader.result;
+          preview.hidden = false;
+          emptyPreview.hidden = true;
+        };
+        reader.readAsDataURL(file);
+        setStatus("Image loaded. Run prediction when ready.");
+      }
+
+      input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (file) showFile(file);
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropZone.dataset.active = "true";
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          dropZone.dataset.active = "false";
+        });
+      });
+
+      dropZone.addEventListener("drop", (event) => {
+        const file = event.dataTransfer.files[0];
+        if (file) showFile(file);
+      });
+
+      predictButton.addEventListener("click", async () => {
+        if (!selectedFile) return;
+
+        predictButton.disabled = true;
+        setStatus("Running model inference...");
+
+        const formData = new FormData();
+        formData.append("image", selectedFile);
+
+        try {
+          const response = await fetch("/predict", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || "Prediction failed");
+          }
+
+          predictedClass.textContent = data.predicted_class;
+          confidence.textContent = `${(data.confidence * 100).toFixed(2)}% confidence`;
+          topPredictions.innerHTML = data.top_predictions
+            .map(
+              (item) =>
+                `<li><span>${item.class_name}</span><strong>${(item.confidence * 100).toFixed(2)}%</strong></li>`
+            )
+            .join("");
+          if (data.low_confidence) {
+            setStatus("Low-confidence prediction. Try a tighter crop with only the hand centered.", "warning");
+          } else {
+            setStatus("Prediction complete.", "success");
+          }
+        } catch (error) {
+          setStatus(error.message, "error");
+        } finally {
+          predictButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
