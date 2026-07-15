@@ -7,12 +7,3 @@ code/data/
 
 # macOS metadata
 .DS_Store
-
-# Python/Jupyter cache files
-.ipynb_checkpoints/
-__pycache__/
-
-# Trained model files
-*.pth
-models/*.pth
-!models/baseline_mobilenetv2.pth
