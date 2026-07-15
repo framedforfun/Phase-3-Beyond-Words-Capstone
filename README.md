@@ -164,7 +164,7 @@ data/asl_alphabet_test/                        ← Kaggle test images
 **4. Run the notebooks in order**
 
 ```
-sprint_1.ipynb                          # EDA (optional for reproduction)
+eda.ipynb                          # EDA (optional for reproduction)
 sprint_2.ipynb                          # Builds asl_metadata.db
 dataset_dataloader_verification.ipynb   # Creates DataLoaders (run via %run in sprint_3)
 sprint_3.ipynb                          # Training and evaluation
